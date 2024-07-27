@@ -1,0 +1,6 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://8.137.91.234:3306/blog?useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: 123456
