@@ -1,0 +1,14 @@
+spring:
+  #数据库
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://8.137.91.234:3306/blog?useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: 123456
+
+  #热部署
+  devtools:
+    restart:
+      enabled: true  #设置开启热部署
+      additional-paths: src/main/java #重启目录
+      exclude: WEB-INF/**
