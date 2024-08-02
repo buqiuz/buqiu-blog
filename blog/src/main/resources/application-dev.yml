@@ -4,7 +4,22 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://8.137.91.234:3306/blog?useSSL=false&allowPublicKeyRetrieval=true
     username: root
-    password: 123456
+    password: CS2313684085cs
+
+  #redis
+  data:
+    redis:
+      port: 6379
+      host: 8.137.91.234
+      password: 123456
+      timeout: 10000
+      database: 0
+      lettuce:
+        pool:
+          max-active: 8 #最大连接数量
+          max-idle: 8 #最大空闲连接数
+          min-idle: 0 #最小空闲连接数
+          max-wait: 100ms #最大等待时间
 
   #热部署
   devtools:
@@ -12,4 +27,72 @@ spring:
       enabled: true  #设置开启热部署
       additional-paths: src/main/java #重启目录
       exclude: WEB-INF/**
+
+  #发送邮件配置
+  mail:
+    host: smtp.163.com
+    port: 465
+    username: buqiuz@163.com
+    password: IHTJBTBZWPIGSRQM
+    protocol: smtps
+    properties:
+      mail.smtp:
+        auth: true
+        starttls.enable: true
+        starttls.required: true
+        ssl.enable: true
+        socketFactory.port: 465
+        socketFactory.class: javax.net.ssl.SSLSocketFactory
+        socketFactory.fallback: false
+
+  #RabbitMQ配置
+  rabbitmq:
+    host: 8.137.91.234
+    port: 5672
+    virtual-host: test
+    username: guest
+    password: guest
+    listener:
+      simple:
+        retry:
+          enabled: true #是否开启消费者重试
+          max-attempts: 3 #最大重试次数
+          initial-interval: 6000 #重试间隔时间（单位毫秒）
+          multiplier: 2 #间隔时间乘子，间隔时间*乘子=下一次的间隔时间，最大不能超过设置的最大间隔时间
+          max-interval: 10000 #重试最大时间间隔（单位毫秒）
+        prefetch: 10
+
+  #Security配置
+  security:
+    user:
+      name: user
+      password: 123456
+
+
+# springdoc-openapi项目配置
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
+  group-configs:
+    - group: 'default'
+      paths-to-match: '/**'
+      packages-to-scan: com.buqiu.blog
+# knife4j的增强配置，不需要增强可以不配
+knife4j:
+  enable: true
+  setting:
+    language: zh_cn
+
+
+
+
+
+
+
+
+
 

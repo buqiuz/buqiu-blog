@@ -7,7 +7,7 @@ import java.nio.file.Paths;
 
 public class MyGenerator {
     public static void main(String[] args) {// 使用 FastAutoGenerator 快速配置代码生成器
-        FastAutoGenerator.create("jdbc:mysql://localhost:3306/world", "root", "2667151")
+        FastAutoGenerator.create("jdbc:mysql://buqiu.icu:3306/blog", "root", "CS2313684085cs")
                 .globalConfig(builder -> {
                     builder.author("不秋") // 设置作者
                             .disableOpenDir() // 不允许自动打开输出目录
@@ -18,14 +18,17 @@ public class MyGenerator {
 
                 })
                 .packageConfig(builder -> {
-                    builder.parent("com.buqiu.blog"); // 设置父包名
+                    builder.parent("com.buqiu.blog")
+                            .entity("domain.entity") //设置entity包名
+
+                    ; // 设置父包名
                 })
                 .strategyConfig(builder -> {
-                    builder.addInclude("country", "countrylanguage", "city") // 设置需要生成的表名
+                    builder.addInclude("user") // 设置需要生成的表名
                             // 实体类
                             .entityBuilder()
                             .enableLombok() // 启用 Lombok
-                            .enableActiveRecord() // 启用 ActiveRecord 模式，实体类继承 Model然后可以直接使用 ActiveRecord 模式的方法
+//                            .enableActiveRecord() // 启用 ActiveRecord 模式，实体类继承 Model然后可以直接使用 ActiveRecord 模式的方法
                             .enableFileOverride()// 覆盖已有entity文件
                             .enableTableFieldAnnotation() // 启用字段注解
 //                            .javaTemplate("templates/entity.java")
@@ -38,7 +41,7 @@ public class MyGenerator {
 
                             // service
                             .serviceBuilder()
-                            .enableFileOverride() // 覆盖已有service文件
+//                            .enableFileOverride() // 覆盖已有service文件
 
                             // mapper
                             .mapperBuilder()
