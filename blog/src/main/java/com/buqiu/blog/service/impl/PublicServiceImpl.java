@@ -1,6 +1,7 @@
 package com.buqiu.blog.service.impl;
 
 import com.buqiu.blog.domain.constant.RedisConst;
+import com.buqiu.blog.domain.dto.EmailDTO;
 import com.buqiu.blog.domain.enums.ResultEnum;
 import com.buqiu.blog.domain.result.Result;
 import com.buqiu.blog.service.IPublicService;
@@ -39,9 +40,10 @@ public class PublicServiceImpl implements IPublicService {
     * @return: 返回Result
     */
     @Override
-    public Result<Void> sendEmail(String email, String type) {
+    public Result<Void> sendEmail(EmailDTO emailDTO) {
         boolean success = false;
-
+        String email = emailDTO.getEmail();
+        String type = emailDTO.getType();
         // 加锁，防止同一时间被同一人调用多次
         synchronized (email.intern()) {
             try {
@@ -49,7 +51,7 @@ public class PublicServiceImpl implements IPublicService {
                 String code = String.valueOf((int) ((Math.random() * 9 + 1) * 100000));
                 // 保存到redis，设置过期时间为5分钟
                 // redisCache.setCacheObject(RedisConst.VERIFY_CODE + type + RedisConst.SEPARATOR + email, code, RedisConst.VERIFY_CODE_EXPIRATION, TimeUnit.MINUTES);
-                redisService.setValue(new String[]{"email" , type , email}, code, RedisConst.CODE_EXPIRE_TIME, TimeUnit.MINUTES);
+                redisService.setValue(new String[]{RedisConst.VERIFY_CODE , RedisConst.TYPE_REGISTER , email}, code, RedisConst.CODE_EXPIRE_TIME, TimeUnit.MINUTES);
                 // 发送邮件
                 Map<String, Object> msg = Map.of("email", email, "code", code, "type", type);
                 rabbitTemplate.convertAndSend(exchange, routingKey, msg);

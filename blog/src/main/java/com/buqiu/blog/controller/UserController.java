@@ -31,6 +31,6 @@ public class UserController {
     @Operation(summary = "用户注册")
     @PostMapping("/register")
     public Result<Void> register(@RequestBody @Valid UserRegisterDTO userRegisterDTO) {
-        return userService.userRegister(userRegisterDTO);
+        return userService.Register(userRegisterDTO);
     }
 }

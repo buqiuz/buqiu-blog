@@ -1,4 +1,4 @@
-package com.buqiu;
+package com.buqiu.blog;
 
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;

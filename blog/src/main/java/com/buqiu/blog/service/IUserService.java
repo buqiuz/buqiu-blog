@@ -1,8 +1,8 @@
 package com.buqiu.blog.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.buqiu.blog.domain.dto.UserRegisterDTO;
 import com.buqiu.blog.domain.entity.User;
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.buqiu.blog.domain.result.Result;
 
 /**
@@ -15,5 +15,6 @@ import com.buqiu.blog.domain.result.Result;
  */
 public interface IUserService extends IService<User> {
 
-    Result<Void> userRegister(UserRegisterDTO userRegisterDTO);
+    Result<Void> Register(UserRegisterDTO userRegisterDTO);
+
 }

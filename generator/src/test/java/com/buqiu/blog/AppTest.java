@@ -1,4 +1,4 @@
-package com.buqiu;
+package com.buqiu.blog;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

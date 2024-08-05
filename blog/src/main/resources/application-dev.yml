@@ -88,6 +88,11 @@ knife4j:
     language: zh_cn
 
 
+#jwt
+jwt:
+  #hours默认24小时
+  expire-time: 3
+
 
 
 

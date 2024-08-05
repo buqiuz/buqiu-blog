@@ -19,4 +19,7 @@ public class UserConst {
 
     public static final String DEFAULT_BIO = "这个人很烂，什么也没留下";
     public static final Byte DEFAULT_STATUS = 1;
+    private UserConst(){
+        throw new IllegalStateException("Utility class,cannot be instantiated");
+    }
 }

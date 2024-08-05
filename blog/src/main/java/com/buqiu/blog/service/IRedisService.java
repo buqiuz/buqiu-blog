@@ -13,8 +13,7 @@ import java.util.concurrent.TimeUnit;
 public interface IRedisService<T> {
     void setValue(final String[] key, final T value);
     void setValue(final String[] key, final T value, final long timeout, final TimeUnit unit);
-
     T getValue(final String[] key);
-
     Boolean deleteValue(final String[] key);
+    void setHash(String[] key,  T value);
 }

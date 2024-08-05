@@ -60,4 +60,9 @@ public class RedisServiceImpl<T> implements IRedisService<T> {
         return redisTemplate.delete(buildKey(key));
     }
 
+    @Override
+    public void setHash(String[] key,  T value) {
+        redisTemplate.opsForHash().put(buildKey(key), value, value);
+    }
+
 }

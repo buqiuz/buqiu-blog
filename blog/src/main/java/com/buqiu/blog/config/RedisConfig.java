@@ -1,5 +1,7 @@
 package com.buqiu.blog.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -17,7 +19,10 @@ import org.springframework.data.redis.serializer.RedisSerializer;
  * @since: 2024-08-02 01:02:59
  */
 @Configuration
+@RequiredArgsConstructor
 public class RedisConfig{
+
+    private final ObjectMapper objectMapper;
     @Bean
     @Primary
     public <T>RedisTemplate<String, T> redisTemplate(RedisConnectionFactory redisConnectionFactory){
@@ -28,7 +33,7 @@ public class RedisConfig{
         redisTemplate.setConnectionFactory(redisConnectionFactory);
 
         //创建Json序列化工具,基于Jackson,专为Redis设计,且jackson依赖由spring mvc 提供,即web依赖
-        GenericJackson2JsonRedisSerializer jsonRedisSerializer = new GenericJackson2JsonRedisSerializer();
+        GenericJackson2JsonRedisSerializer jsonRedisSerializer = new GenericJackson2JsonRedisSerializer(objectMapper);
 
         //设置key序列化
         redisTemplate.setKeySerializer(RedisSerializer.string());

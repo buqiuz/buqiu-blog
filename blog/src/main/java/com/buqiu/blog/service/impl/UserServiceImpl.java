@@ -1,12 +1,13 @@
 package com.buqiu.blog.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.buqiu.blog.mapper.UserMapper;
+import com.buqiu.blog.domain.constant.RedisConst;
 import com.buqiu.blog.domain.constant.UserConst;
 import com.buqiu.blog.domain.dto.UserRegisterDTO;
 import com.buqiu.blog.domain.entity.User;
 import com.buqiu.blog.domain.enums.ResultEnum;
 import com.buqiu.blog.domain.result.Result;
-import com.buqiu.blog.mapper.UserMapper;
 import com.buqiu.blog.service.IRedisService;
 import com.buqiu.blog.service.IUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -59,8 +60,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     * @return: true: 验证码正确 ;false: 验证码错误
     */
     public boolean isCodeCorrect(UserRegisterDTO userRegisterDTO) {
-        return redisService.getValue(new String[]{"email", "register", userRegisterDTO.getEmail()}).equals(userRegisterDTO.getCode())
-                ? redisService.deleteValue(new String[]{"email","register",userRegisterDTO.getEmail()})
+        return redisService.getValue(new String[]{RedisConst.VERIFY_CODE, RedisConst.TYPE_REGISTER, userRegisterDTO.getEmail()}).equals(userRegisterDTO.getCode())
+                ? redisService.deleteValue(new String[]{RedisConst.VERIFY_CODE,RedisConst.TYPE_REGISTER,userRegisterDTO.getEmail()})
                 : false;
     }
 
@@ -72,7 +73,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     * @return: Result
     */
     @Override
-    public Result<Void> userRegister(UserRegisterDTO userRegisterDTO) {
+    public Result<Void> Register(UserRegisterDTO userRegisterDTO) {
         // 判断用户名是否已存在
         if (isUsernameExists(userRegisterDTO.getUsername())){
             return Result.fail(ResultEnum.USERNAME_EXIST);

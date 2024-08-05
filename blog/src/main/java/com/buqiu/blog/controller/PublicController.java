@@ -1,10 +1,14 @@
 package com.buqiu.blog.controller;
 
+import com.buqiu.blog.domain.dto.EmailDTO;
 import com.buqiu.blog.domain.result.Result;
 import com.buqiu.blog.service.IPublicService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>
@@ -29,7 +33,7 @@ public class PublicController {
     * @return: 返回成功与否
     */
     @PostMapping("/sendEmail")
-    public Result<Void> sendEmail(@RequestParam("email") String email,@RequestParam("type") String type) {
-        return publicService.sendEmail(email, type);
+    public Result<Void> sendEmail(@RequestBody EmailDTO emailDTO) {
+        return publicService.sendEmail(emailDTO);
     }
 }

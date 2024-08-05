@@ -1,5 +1,6 @@
 package com.buqiu.blog.service;
 
+import com.buqiu.blog.domain.dto.EmailDTO;
 import com.buqiu.blog.domain.result.Result;
 
 /**
@@ -18,5 +19,5 @@ public interface IPublicService {
     * @params: email:邮箱地址 code:验证码
     * @return:
     */
-    Result<Void> sendEmail(String email, String type);
+    Result<Void> sendEmail(EmailDTO emailDTO);
 }
